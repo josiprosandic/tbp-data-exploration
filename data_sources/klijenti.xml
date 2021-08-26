@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<klijenti>
+  <klijent>
+    <kor-ime>barica</kor-ime>
+    <e-mail>barica@foi.hr</e-mail>
+    <drzava>Hrvatska</drzava>
+    <broj-kartice>1234567890098</broj-kartice>
+    <interesi>
+      <interes>baza podataka</interes>
+      <interes>umjetna inteligencija</interes>
+      <interes>procesiranje prirodnog jezika</interes>
+      <interes>Python</interes>
+    </interesi>
+  </klijent>
+  <klijent>
+    <kor-ime>franc</kor-ime>
+    <e-mail>franc@foi.hr</e-mail>
+    <drzava>Hrvatska</drzava>
+    <broj-kartice>2134567890098</broj-kartice>
+    <interesi>
+      <interes>baza podataka</interes>
+      <interes>NoSQL</interes>
+      <interes>Datalog</interes>
+      <interes>XQuery</interes>
+    </interesi>
+  </klijent>
+  <klijent>
+    <kor-ime>dudek</kor-ime>
+    <e-mail>dudek@foi.hr</e-mail>
+    <drzava>Hrvatska</drzava>
+    <broj-kartice>3234567890098</broj-kartice>
+    <interesi>
+      <interes>UML</interes>
+      <interes>objekt</interes>
+      <interes>klasa</interes>
+      <interes>metoda</interes>
+    </interesi>
+  </klijent>
+  <klijent>
+    <kor-ime>ivek</kor-ime>
+    <e-mail>ivek@foi.hr</e-mail>
+    <drzava>Hrvatska</drzava>
+    <broj-kartice>1534567890098</broj-kartice>
+    <interesi>
+      <interes>SQL</interes>
+      <interes>C++</interes>
+      <interes>Python</interes>
+    </interesi>
+  </klijent>
+</klijenti>

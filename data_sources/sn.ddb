@@ -1,0 +1,86 @@
+clanstvo('barica@foi.hr',1).
+clanstvo('barica@foi.hr',2).
+clanstvo('barica@foi.hr',3).
+clanstvo('franc@foi.hr',4).
+clanstvo('ivek@foi.hr',5).
+grupa(1,'FOI').
+grupa(2,'Teorija baza podataka').
+grupa(3,'Punkeri').
+grupa(4,'Teški metal').
+grupa(5,'Klet').
+osoba('ivek@foi.hr','Ivek','Presvetli','Hrvatska','Varaždin',musko).
+osoba('barica@foi.hr','Barica','Prekratki','Hrvatska','Varaždin',zensko).
+osoba('franc@foi.hr','Franc','Presretni','Hrvatska','Ludbreg',musko).
+osoba('julka@foi.hr','Juliška','Presretni','Hrvatska','Ludbreg',zensko).
+osoba('dragec@foi.hr','Dragec','Jambrek','Hrvatska','Ivanec',musko).
+veza('ivek@foi.hr','barica@foi.hr',1,prihvaceno).
+veza('barica@foi.hr','julka@foi.hr',1,poslano).
+veza('franc@foi.hr','ivek@foi.hr',1,prihvaceno).
+veza('julka@foi.hr','ivek@foi.hr',2,prihvaceno).
+veza('dragec@foi.hr','ivek@foi.hr',5,poslano).
+vrsta_veze(1,'prijatelj').
+vrsta_veze(2,'ljubavna veza').
+vrsta_veze(3,'sused').
+vrsta_veze(4,'suradnik').
+vrsta_veze(5,'kolega').
+
+grupa( Naziv ) :-
+	grupa( _, Naziv ).
+
+osoba( Ime, Prezime ) :-
+	osoba( _, Ime, Prezime, _, _, _ ).
+
+veza_k( Osoba1, Osoba2, Vrsta, Status ) :-
+	veza( Osoba1, Osoba2, Vrsta, Status ).
+veza_k( Osoba1, Osoba2, Vrsta, Status ) :-
+	veza( Osoba2, Osoba1, Vrsta, Status ).
+
+prijatelj( Ime1, Prezime1, Ime2, Prezime2 ) :-
+	osoba( Email1, Ime1, Prezime1, _, _, _ ),
+	osoba( Email2, Ime2, Prezime2, _, _, _ ),
+	veza( Email1, Email2, Vrsta, _ ),
+	vrsta_veze( Vrsta, 'prijatelj' ).
+
+prijatelj_prijatelja( Ime1, Prezime1, Ime2, Prezime2 ) :-
+	prijatelj( Ime1, Prezime1, ImeX, PrezimeX ),
+	prijatelj( ImeX, PrezimeX, Ime2, Prezime2 ).
+
+zenski_prijatelj( Ime1, Prezime1, Ime2, Prezime2 ) :-
+	prijatelj( Ime1, Prezime1, Ime2, Prezime2 ),
+	osoba( _, Ime2, Prezime2, _, _, 'zensko' ).
+
+muski_prijatelj( Ime1, Prezime1, Ime2, Prezime2 ) :-
+	prijatelj( Ime1, Prezime1, Ime2, Prezime2 ),
+	osoba( _, Ime2, Prezime2, _, _, 'musko' ).
+
+nije_varazdinec( Ime, Prezime ) :-
+	osoba( Email, Ime, Prezime, _, _, _ ),
+	not( osoba( Email, _, _, _, 'Varaždin', _ ) ).
+
+grupa( Drzava ) :-
+	osoba( _, _, _, Drzava, _, _ ).
+
+grupa( Grad ) :-
+	osoba( _, _, _, _, Grad, _ ).
+
+clan_grupe( Email, Grupa ) :-
+	osoba( Email, _, _, _, _, _ ),
+	clanstvo( Email, SifGrupe ),
+	grupa( SifGrupe, Grupa ).
+clan_grupe( Email, Drzava ) :-
+	osoba( Email, _, _, Drzava, _, _ ).
+clan_grupe( Email, Grad ) :-
+	osoba( Email, _, _, _, Grad, _ ).
+
+udaljen( Email1, Email2, 1 ) :-
+	veza( Email1, Email2, _, _ ).
+udaljen( Email1, Email2, X ) :-
+	udaljen( EmailX, Email2, X1 ),
+	veza( Email1, EmailX, _, _ ),
+	count( veza( _, _, _, _ ), Max ),
+	X1 < Max,
+	X is X1 + 1.
+
+najkraci_put( E1, E2, X ) :-
+	min( udaljen( E1, E2, U ), U, X ).
+
